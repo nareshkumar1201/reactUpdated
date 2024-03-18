@@ -1,8 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const fetchUsers = createAsyncThunk("users/fetch", async () => {
+  console.log("in fetch User component ");
   const response = await axios.get("http://localhost:3005/users");
   await pause(1000);
+  console.log("in fetchUsers line-6", response.data);
   return response.data;
 });
 

@@ -4,10 +4,12 @@ import { fetchUsers, addUser } from "../store";
 import Button from "./Button";
 import Skeleton from "./Skeleton";
 import useThunk from "../hooks/useThunks";
+import UserListItem from "./UserListItem";
 const UsersList = () => {
   const { data } = useSelector((state) => {
     return state.users;
   });
+  console.log("in user list component line-12", data);
   const [doFetchUsers, isLoadingUsers, loadingUsersError] =
     useThunk(fetchUsers);
   const [doCreateUser, isCreatingUser, creatingUserError] = useThunk(addUser);
@@ -26,13 +28,7 @@ const UsersList = () => {
     content = <div>Error fetching data...</div>;
   } else {
     content = data.map((user) => {
-      return (
-        <div className="mb-2 border rounded" key={user.id}>
-          <div className="flex p-2 justify-between item-center cursor-pointer">
-            {user.name}
-          </div>
-        </div>
-      );
+      return <UserListItem key={user.id} user={user} />;
     });
   }
 
